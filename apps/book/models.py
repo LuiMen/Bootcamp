@@ -1,5 +1,8 @@
 from django.db import models
 
+from apps.author.models import Author
+from apps.editorial.models import Editorial
+
 
 class Category(models.Model):
     name = models.CharField(verbose_name='Nombre', max_length=50)
@@ -18,6 +21,9 @@ class Book(models.Model):
     pages = models.PositiveSmallIntegerField(verbose_name='Número de páginas')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Categoría')
+    editorial = models.ForeignKey(Editorial, on_delete=models.SET_NULL,
+                                  null=True)
+    authors = models.ManyToManyField(Author)
 
     class Meta:
         verbose_name = 'Libro'
